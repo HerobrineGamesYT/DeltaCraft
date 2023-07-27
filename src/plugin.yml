@@ -1,0 +1,14 @@
+name: DeltaCraft
+main: net.herobrine.deltacraft.DeltaCraft
+version: 1.0
+commands:
+  killboss:
+    description: Kill the active boss.
+  giveitem:
+    description: Add a custom DeltaCraft item to your inventory.
+  setstats:
+    description: Cheat your stats to whatever you want them to be.
+  spawncustommob:
+    description: Spawn a custom deltacraft mob.
+  classmenutest:
+    description: Test the DeltaCraft Class Selector.

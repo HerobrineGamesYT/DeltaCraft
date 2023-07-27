@@ -1,0 +1,18 @@
+#Mission IDs should be configured as Arena IDs.
+missions:
+  '4':
+    missionType: DIMENTIO_TEST
+    world: 'dungeonTest'
+    x: -218.5
+    y: 4
+    z: 9.5
+    pitch: 1
+    yaw: 179
+    first-position:
+      x: 0
+      y: 0
+      z: 0
+    second-position:
+      x: 0
+      y: 0
+      z: 0
