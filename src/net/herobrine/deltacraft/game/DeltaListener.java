@@ -4,6 +4,7 @@ import net.citizensnpcs.api.CitizensAPI;
 import net.citizensnpcs.api.event.CitizensEnableEvent;
 import net.citizensnpcs.api.event.NPCDamageByEntityEvent;
 import net.citizensnpcs.api.npc.NPC;
+import net.herobrine.core.HerobrinePVPCore;
 import net.herobrine.core.SongPlayer;
 import net.herobrine.core.Songs;
 import net.herobrine.deltacraft.DeltaCraft;
@@ -181,8 +182,25 @@ public class DeltaListener implements Listener {
         int clickedSlot = e.getSlot();
         Arena arena = Manager.getArena((Player)e.getWhoClicked());
         Player player = (Player) e.getWhoClicked();
-        if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR)) return;
+        if (e.getCurrentItem() == null || e.getCurrentItem().getType().equals(Material.AIR) || e.getCurrentItem().getType().equals(Material.SKULL_ITEM)) return;
         try {
+
+            if (e.getCurrentItem().getType().equals(Material.STAINED_GLASS_PANE)) {
+               if (inv.getItem(e.getSlot() - 9).getItemMeta().getDisplayName().contains(player.getName())) {
+                   if (!arena.getDeltaGame().getReadiedPlayers().contains(player.getUniqueId())) {
+                       arena.getDeltaGame().getReadiedPlayers().add(player.getUniqueId());
+                       arena.sendMessage(HerobrinePVPCore.getFileManager().getRank(player).getColor() + player.getName() + ChatColor.GREEN + " is now ready!");
+                       arena.getDeltaGame().checkIfReady();
+                   }
+                   Menus.updateMenuFor(arena, player);
+                   for (UUID uuid: arena.getPlayers()) {
+                       Player player1 = Bukkit.getPlayer(uuid);
+                       if(player1 != player) Menus.updateMenuFor(arena, player1);
+                   }
+                }
+               return;
+            }
+
             String name = ChatColor.stripColor(e.getCurrentItem().getItemMeta().getDisplayName());
             if(name.equals("Healer")) name = "HEALER_DELTACRAFT";
             if (name.equals("Archer")) name = "ARCHER_DELTACRAFT";
@@ -191,6 +209,12 @@ public class DeltaListener implements Listener {
             arena.sendMessage(ChatColor.GREEN + player.getName() + " selected the " + type.getDisplay() + ChatColor.GREEN + " class!");
             player.playSound(player.getLocation(), Sound.NOTE_STICKS, 1f, 1f);
             arena.setClass(player.getUniqueId(), type);
+
+            if (!arena.getDeltaGame().getReadiedPlayers().contains(player.getUniqueId())) {
+                arena.getDeltaGame().getReadiedPlayers().add(player.getUniqueId());
+                arena.sendMessage(HerobrinePVPCore.getFileManager().getRank(player).getColor() + player.getName() + ChatColor.GREEN + " is now ready!");
+            }
+
             Menus.updateMenuFor(arena, player);
             for (UUID uuid: arena.getPlayers()) {
                 Player player1 = Bukkit.getPlayer(uuid);
@@ -207,6 +231,12 @@ public class DeltaListener implements Listener {
             arena.sendMessage(ChatColor.GREEN + player.getName() + " selected the " + type.getDisplay() + ChatColor.GREEN + " class!");
             player.playSound(player.getLocation(), Sound.NOTE_STICKS, 1f, 1f);
             arena.setClass(player.getUniqueId(), type);
+
+            if (!arena.getDeltaGame().getReadiedPlayers().contains(player.getUniqueId())) {
+                arena.getDeltaGame().getReadiedPlayers().add(player.getUniqueId());
+                arena.sendMessage(HerobrinePVPCore.getFileManager().getRank(player).getColor() + player.getName() + ChatColor.GREEN + " is now ready!");
+                arena.getDeltaGame().checkIfReady();
+            }
             Menus.updateMenuFor(arena, player);
             for (UUID uuid: arena.getPlayers()) {
                 Player player1 = Bukkit.getPlayer(uuid);

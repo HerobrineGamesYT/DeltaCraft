@@ -146,12 +146,19 @@ public class SequentialDialogueTrait extends Trait {
         lastLine = ticks;
         if (hasVoice) arena.playSound(voice, 1f, voicePitch);
         if (isBoss) {
-            arena.sendMessage(color + "[BOSS] " + characterType.getDisplay() + ChatColor.WHITE + ": " + line);
+            arena.sendMessage(color + "[BOSS] " + characterType.getDisplay() + ChatColor.WHITE + ": " + HerobrinePVPCore.translateString(line));
            if (npc.getOrAddTrait(HologramTrait.class).getLines().size() > 1) npc.getOrAddTrait(HologramTrait.class).setLine(1, HerobrinePVPCore.translateString("&f&l" + line));
            else npc.getOrAddTrait(HologramTrait.class).addLine(HerobrinePVPCore.translateString("&f&l" + line));
         }
-        else arena.sendMessage(ChatColor.YELLOW + "[NPC] " + characterType.getDisplay() + ChatColor.WHITE + ": " + line);
+        else arena.sendMessage(ChatColor.YELLOW + "[NPC] " + characterType.getDisplay() + ChatColor.WHITE + ": " + HerobrinePVPCore.translateString(line));
 
+    }
+
+    public void say(String line, Player player) {
+        if (hasVoice) player.playSound(player.getLocation(), voice, 1f, voicePitch);
+        if (isBoss) player.sendMessage(color + "[BOSS] " + characterType.getDisplay() + ChatColor.WHITE + ": " + HerobrinePVPCore.translateString(line));
+
+        else player.sendMessage(ChatColor.YELLOW + "[NPC] " + characterType.getDisplay() + ChatColor.WHITE + ": " + HerobrinePVPCore.translateString(line));
     }
 
 
@@ -175,8 +182,8 @@ public class SequentialDialogueTrait extends Trait {
                 if (lines.containsKey(tick[0])) {
                     lastLine = ticks;
                     if(hasVoice) player.playSound(player.getLocation(), voice, 1f, voicePitch);
-                    if (isBoss) player.sendMessage(color + "[BOSS] " + characterType.getDisplay() + ChatColor.WHITE + ": " + lines.get(tick[0]));
-                    else player.sendMessage(ChatColor.YELLOW + "[NPC] " + characterType.getDisplay() + ChatColor.WHITE + ": " + lines.get(tick[0]));
+                    if (isBoss) player.sendMessage(color + "[BOSS] " + characterType.getDisplay() + ChatColor.WHITE + ": " + HerobrinePVPCore.translateString(lines.get(tick[0])));
+                    else player.sendMessage(ChatColor.YELLOW + "[NPC] " + characterType.getDisplay() + ChatColor.WHITE + ": " + HerobrinePVPCore.translateString(lines.get(tick[0])));
                 }
 
 
@@ -197,6 +204,8 @@ public class SequentialDialogueTrait extends Trait {
         voicePitch = pitch;
         hasVoice = true;
     }
+
+    public HashMap<Long, String> getDialogueMap() {return dialogue;}
 
     public void setupDialogueMap(String[] text, long[] ticks, Characters character, Arena a) {
         isBoss = character.isBoss();

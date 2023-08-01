@@ -54,13 +54,20 @@ public class Menus {
             Player players = Bukkit.getPlayer(uuid);
             ItemBuilder skull = new ItemBuilder(Material.SKULL_ITEM, (short) 3);
             skull.setHead(players.getName());
-            skull.setDisplayName(ChatColor.GREEN + player.getName());
+            skull.setDisplayName(ChatColor.GREEN + players.getName());
             ItemBuilder readyItem = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 5);
+            readyItem.setDisplayName(ChatColor.GREEN + "Ready");
             //slot+9 is where these items should go
             ItemBuilder notReadyItem = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 14);
+            notReadyItem.setDisplayName(ChatColor.RED + "Not Ready");
+            if (players == player) notReadyItem.setLore(Arrays.asList(ChatColor.GRAY + "Click to mark yourself as ready",
+                    ChatColor.GRAY + "to start!", "", ChatColor.YELLOW + "Click to ready up!"));
 
             classSelector.setItem(playerHeadSlots[i], skull.build());
-            //TODO check if player is ready and if so set the slot accordingly
+
+            if (arena.getDeltaGame().getReadiedPlayers().contains(players.getUniqueId())) classSelector.setItem(playerHeadSlots[i] + 9, readyItem.build());
+            else classSelector.setItem(playerHeadSlots[i] + 9, notReadyItem.build());
+
             i++;
             }
 
@@ -115,6 +122,7 @@ public class Menus {
         if (inventory == null) return;
         if (!inventory.getTitle().equals(ChatColor.translateAlternateColorCodes('&', "&c&lDELTACRAFT &7- Class Selector"))) return;
         int[] classSlots = new int[]{29, 30, 31, 32, 33};
+        int[] playerHeadSlots = new int[] {4,3,5,2,6};
         ClassTypes[] classArray = new ClassTypes[] {ClassTypes.HEALER_DELTACRAFT, ClassTypes.MAGE, ClassTypes.BERSERK, ClassTypes.ARCHER_DELTACRAFT, ClassTypes.TANK};
         ClassTypes ownClassType = null;
         for (UUID uuid : arena.getClasses().keySet()) {
@@ -147,6 +155,23 @@ public class Menus {
             }
 
             else inventory.setItem(classSlots[i] + 9, notSelected.build());
+        }
+
+        int i = 0;
+        for (UUID uuid : arena.getPlayers()) {
+            Player players = Bukkit.getPlayer(uuid);
+            ItemBuilder readyItem = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 5);
+            readyItem.setDisplayName(ChatColor.GREEN + "Ready");
+            //slot+9 is where these items should go
+            ItemBuilder notReadyItem = new ItemBuilder(Material.STAINED_GLASS_PANE, (short) 14);
+            notReadyItem.setDisplayName(ChatColor.RED + "Not Ready");
+            if (players == player) notReadyItem.setLore(Arrays.asList(ChatColor.GRAY + "Click to mark yourself as ready",
+                    ChatColor.GRAY + "to start!", "", ChatColor.YELLOW + "Click to ready up!"));
+
+            if (arena.getDeltaGame().getReadiedPlayers().contains(players.getUniqueId())) inventory.setItem(playerHeadSlots[i] + 9, readyItem.build());
+            else inventory.setItem(playerHeadSlots[i] + 9, notReadyItem.build());
+
+            i++;
         }
     }
 

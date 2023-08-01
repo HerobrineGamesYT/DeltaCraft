@@ -23,10 +23,7 @@ import org.bukkit.scoreboard.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DeltaGame {
@@ -43,16 +40,7 @@ private HashMap<UUID, Entity> lastHitEntity;
 
 private HashMap<UUID, Long> lastHitTime;
 
-private HashMap<UUID, Integer> healthFromEquipment;
-
-private HashMap<UUID, Integer> defenseFromEquipment;
-
-private HashMap<UUID, Integer> intelligenceFromEquipment;
-
-private HashMap<UUID, Integer> strengthFromEquipment;
-
-private HashMap<UUID, Integer> maxHealthMap;
-private HashMap<UUID, Integer> maxIntelligenceMap;
+private ArrayList<UUID> readiedPlayers;
 
 
 private int seconds;
@@ -76,14 +64,9 @@ private boolean areAttacksInitialized;
         this.playerStatsMap = new HashMap<>();
         this.lastHitTime = new HashMap<>();
         this.lastHitEntity = new HashMap<>();
-        this.healthFromEquipment = new HashMap<>();
-        this.defenseFromEquipment = new HashMap<>();
-        this.intelligenceFromEquipment = new HashMap<>();
-        this.strengthFromEquipment = new HashMap<>();
-        this.maxHealthMap = new HashMap<>();
-        this.maxIntelligenceMap = new HashMap<>();
         this.areAbilitiesInitialized = false;
         this.areAttacksInitialized = false;
+        this.readiedPlayers = new ArrayList<>();
     }
 
     public void startMission(GameType type) {
@@ -107,7 +90,7 @@ private boolean areAttacksInitialized;
         if (lastHitTime != null) lastHitTime.clear();
         if (mission.isTestMission()) {
 
-            for (UUID uuid: arena.getPlayers()) playerStatsMap.put(uuid, new PlayerStats(1000, 1000, 50, 100, 100, 5));
+            for (UUID uuid: arena.getPlayers()) playerStatsMap.put(uuid, new PlayerStats(1000, 1000, 50, 250, 250, 5));
 
             for (UUID uuid: arena.getPlayers()) {
 
@@ -251,9 +234,25 @@ private boolean areAttacksInitialized;
         }
     }
 
+    public void checkIfReady() {
+        if (!arena.getState().equals(GameState.RECRUITING)) return;
+        boolean shouldCountdown = true;
+       for (UUID uuid : arena.getPlayers()) {
+            if (!getReadiedPlayers().contains(uuid)) shouldCountdown = false;
+        }
+
+       if (shouldCountdown) {
+           arena.setState(GameState.COUNTDOWN);
+           arena.getCountdown().begin();
+           arena.sendMessage(ChatColor.GREEN + "All players have readied up! Countdown is starting...");
+       }
+    }
+
     public boolean isBossActive() {
         return bossActive;
     }
+
+    public ArrayList<UUID> getReadiedPlayers(){return readiedPlayers;}
 
     public PlayerStats getStats(Player player){return playerStatsMap.get(player.getUniqueId());}
     public PlayerStats getStats(UUID uuid){return playerStatsMap.get(uuid);}

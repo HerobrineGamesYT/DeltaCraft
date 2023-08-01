@@ -16,7 +16,8 @@ public enum Characters {
 			Dimentio.class),
 	DUMMY(ChatColor.GREEN + "Dummy", ChatColor.GREEN, 1500, false, EntityType.PLAYER,null, true, null, null, TestDummy.class),
 
-	DUNGEON_MASTER(ChatColor.GRAY + "Dungeon Master", ChatColor.GRAY, 0, false, EntityType.PLAYER, null, false, null, null, DungeonMaster.class),
+	DUNGEON_MASTER(ChatColor.GRAY + "Dungeon Master", ChatColor.GRAY, 0, false, EntityType.PLAYER, null, false, null,
+			null, DungeonMaster.class),
 
 	DUMMY_ATTACKER(ChatColor.RED + "Aggressive Dummy", ChatColor.RED, 1500, false, EntityType.PLAYER,
 			new AttackTypes[] {AttackTypes.BASIC_MELEE, AttackTypes.BASIC_RANGED}, true, null, null, DummyAttacker.class);
