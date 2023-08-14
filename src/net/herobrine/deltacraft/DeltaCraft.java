@@ -48,6 +48,7 @@ public class DeltaCraft extends JavaPlugin {
 		getCommand("setstats").setExecutor(new SetStatCommand());
 		getCommand("spawncustommob").setExecutor(new SpawnCustomMobCommand());
 		getCommand("classmenutest").setExecutor(new ClassMenuCommand());
+		getCommand("testobject").setExecutor(new ObjectTestCommand());
 	}
 
 	public static DeltaCraft getInstance() {return instance;}

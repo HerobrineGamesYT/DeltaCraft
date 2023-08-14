@@ -8,6 +8,7 @@ import net.herobrine.deltacraft.characters.Dimentio;
 import net.herobrine.deltacraft.characters.attack.AttackManager;
 import net.herobrine.deltacraft.items.AbilityManager;
 import net.herobrine.deltacraft.items.ItemTypes;
+import net.herobrine.deltacraft.objects.ObjectManager;
 import net.herobrine.deltacraft.utils.NBTReader;
 import net.herobrine.gamecore.*;
 import org.bukkit.Bukkit;
@@ -53,9 +54,13 @@ private AbilityManager abilityManager;
 
 private AttackManager attackManager;
 
+private ObjectManager objectManager;
+
 private boolean areAbilitiesInitialized;
 
 private boolean areAttacksInitialized;
+
+private boolean areObjectsInitialized;
 
     public DeltaGame(Arena arena) {
         this.arena = arena;
@@ -66,6 +71,7 @@ private boolean areAttacksInitialized;
         this.lastHitEntity = new HashMap<>();
         this.areAbilitiesInitialized = false;
         this.areAttacksInitialized = false;
+        this.areObjectsInitialized = false;
         this.readiedPlayers = new ArrayList<>();
     }
 
@@ -78,6 +84,11 @@ private boolean areAttacksInitialized;
        if (!areAttacksInitialized) {
            attackManager = new AttackManager(arena);
            areAttacksInitialized = true;
+       }
+
+       if (!areObjectsInitialized) {
+           objectManager = new ObjectManager(arena.getID());
+           areObjectsInitialized = true;
        }
         mission = Missions.valueOf(type.name());
         DateFormat df = new SimpleDateFormat("MM/dd/yy");
@@ -208,6 +219,8 @@ private boolean areAttacksInitialized;
     public AttackManager getAttackManager() {return attackManager;}
 
     public AbilityManager getAbilityManager() {return abilityManager;}
+
+    public ObjectManager getObjectManager() {return objectManager;}
 
     public void startBoss() {
         bossActive = true;

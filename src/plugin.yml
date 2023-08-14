@@ -12,3 +12,5 @@ commands:
     description: Spawn a custom deltacraft mob.
   classmenutest:
     description: Test the DeltaCraft Class Selector.
+  testobject:
+    description: Test DeltaObjects.

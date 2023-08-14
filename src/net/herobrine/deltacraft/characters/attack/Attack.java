@@ -37,6 +37,8 @@ public abstract class Attack implements Listener {
     public Attack(AttackTypes type, int id) {
         this.type = type;
         this.arena = Manager.getArena(id);
+
+        Bukkit.getPluginManager().registerEvents(this, DeltaCraft.getInstance());
     }
 
 
