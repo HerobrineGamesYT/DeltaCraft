@@ -100,7 +100,8 @@ public class DungeonMaster extends Character {
         getNPC().getOrAddTrait(SequentialDialogueTrait.class).timedSay(player, dialogueMap);
         new BukkitRunnable() {
             @Override
-            public void run() {
+            public void run() { HashMap<Long, String> dialogueMap = getNPC().getOrAddTrait(SequentialDialogueTrait.class).getDialogueMap();
+                getNPC().getOrAddTrait(SequentialDialogueTrait.class).timedSay(player, dialogueMap);
                 hasTalked.put(player.getUniqueId(), true);
             }
         }.runTaskLater(DeltaCraft.getInstance(), key);

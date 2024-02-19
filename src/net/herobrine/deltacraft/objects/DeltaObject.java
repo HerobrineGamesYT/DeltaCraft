@@ -11,7 +11,7 @@ import org.bukkit.event.Listener;
 public abstract class DeltaObject implements Listener {
     private ObjectTypes type;
     private Objects object;
-    private int id;
+    public int id;
     private Arena arena;
     public DeltaObject(ObjectTypes type, Objects object, int id) {
         this.type = type;

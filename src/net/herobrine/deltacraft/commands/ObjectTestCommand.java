@@ -4,6 +4,7 @@ import net.herobrine.core.HerobrinePVPCore;
 import net.herobrine.core.Ranks;
 import net.herobrine.deltacraft.objects.Objects;
 import net.herobrine.deltacraft.objects.dungeon.PortalCluster;
+import net.herobrine.deltacraft.objects.dungeon.PureHeart;
 import net.herobrine.gamecore.GameState;
 import net.herobrine.gamecore.Games;
 import net.herobrine.gamecore.Manager;
@@ -56,6 +57,7 @@ public class ObjectTestCommand implements CommandExecutor {
                 PortalCluster cluster = (PortalCluster) Manager.getArena(player).getDeltaGame().getObjectManager().createObject(Objects.PORTAL_CLUSTER);
                 cluster.setSpawnPoint(new Location(player.getWorld(), -218.0, 4.0, -33.0));
                 cluster.setDestination(new Location(player.getWorld(), -234, 4.0, -34));
+                cluster.spawnClusterAtDestination(true);
                 clusterTest.add(cluster);
             }
 
@@ -64,6 +66,21 @@ public class ObjectTestCommand implements CommandExecutor {
                 hasPortalSpawned = false;
                 clusterTest.remove(0);
                 player.sendMessage(ChatColor.GREEN + "Removed the test Portal Cluster!");
+            }
+
+
+            else if (args[0].toUpperCase().contains("PURE_HEART_")) {
+                try {
+                    Objects obj = Objects.valueOf(args[0].toUpperCase());
+
+                    PureHeart heart = (PureHeart) Manager.getArena(player).getDeltaGame().getObjectManager().createObject(obj);
+                    heart.setSpawnPoint(new Location(player.getWorld(), -205, 5, 7));
+                    player.sendMessage(ChatColor.GREEN + "Spawned a Pure Heart!");
+                }
+                catch(Exception e) {
+                    player.sendMessage(ChatColor.RED + "Invalid Pure Heart Color!");
+                    return false;
+                }
             }
 
         }

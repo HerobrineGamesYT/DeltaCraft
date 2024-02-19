@@ -6,6 +6,7 @@ import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.persistence.Persist;
 import net.citizensnpcs.api.trait.Trait;
 import net.citizensnpcs.api.trait.TraitName;
+import net.citizensnpcs.trait.RotationTrait;
 import net.citizensnpcs.util.NMS;
 import net.herobrine.core.HerobrinePVPCore;
 import net.herobrine.core.SkullMaker;
@@ -20,15 +21,19 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.entity.*;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
-import java.awt.*;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @TraitName("dimentiotrait")
@@ -94,7 +99,6 @@ public class DimentioTrait extends Trait implements Attacker {
         if(state.equals(DimentioBossState.STARTING) && ticks == 120L) {
             Location loc = npc.getEntity().getLocation();
             Vector dir = loc.getDirection();
-
             dir.multiply(5);
             loc.add(dir);
             loc.add(0, 3, 0);
@@ -208,36 +212,36 @@ public class DimentioTrait extends Trait implements Attacker {
     public void handleTargeting() {
         if (currentAttack == null) pickAttack();
         if (!hasTarget()) {
-            arena.sendMessage(ChatColor.GREEN + "no target");
+            arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.GREEN + " no target");
             HashMap<Double, Player> distance = new HashMap<>();
             for (UUID uuid: arena.getPlayers()) {
                 Player player = Bukkit.getPlayer(uuid);
                 double dist = player.getLocation().distanceSquared(npc.getEntity().getLocation());
                 if (dist <= range*range) {
                     distance.put(dist, player);
-                    arena.sendMessage(ChatColor.GREEN + "potential target found " + player.getName());
+                    arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.GREEN + " potential target found " + player.getName());
                 }
             }
             if (distance.isEmpty()) return;
             Player target = distance.get(Collections.min(distance.keySet()));
 
-            arena.sendMessage(ChatColor.GREEN + "target: " + target.getName());
+            arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.GREEN + " target: " + target.getName());
             if (!hasTarget() && currentAttack != null) pickAttack();
             setTarget(target);
 
-            arena.sendMessage(ChatColor.GREEN + "target real: " + this.target.getName());
+            arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.GREEN + " target real: " + this.target.getName());
         }
 
         else {
             Player victim = target;
             double dist = victim.getLocation().distanceSquared(npc.getEntity().getLocation());
             if (dist > range*range) {
-                arena.sendMessage(ChatColor.RED + "target cancelled");
+                arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.RED + " target cancelled");
                 setTarget(null);
                 return;
             }
             boolean tryAttack = getTargetingMethod().handle((LivingEntity) npc.getEntity(), victim);
-            arena.sendMessage(ChatColor.RED + "Try to attack: " + tryAttack);
+            arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.RED + " Try to attack: " + tryAttack);
             if(!tryAttack) setTarget(null);
         }
 
@@ -258,7 +262,7 @@ public class DimentioTrait extends Trait implements Attacker {
                  Location n = location.setDirection(target.getLocation().subtract(location).toVector());
                  float pit = n.getPitch();
                  float yaw = n.getYaw();
-
+                 NMS.look(target, target.getEyeLocation(), false, false);
                  arena.sendPacket(new PacketPlayOutEntity.PacketPlayOutEntityLook(npc.getEntity().getEntityId(), (byte) ((yaw % 360.) * 256 / 360), (byte) ((pit % 360.) * 256 / 360), false));
                  if(npc.getNavigator().isNavigating()) {
                      npc.getNavigator().cancelNavigation();
@@ -333,7 +337,7 @@ public class DimentioTrait extends Trait implements Attacker {
 
         AttackTypes type = desiredAttacks[ThreadLocalRandom.current().nextInt(0, desiredAttacks.length)];
 
-        arena.sendMessage(ChatColor.GOLD + "[DEBUG] " + ChatColor.GREEN + "Picked Attack: " + type.name());
+        arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.GREEN + " Picked Attack: " + type.name());
         return type;
     }
 

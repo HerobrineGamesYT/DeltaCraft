@@ -138,7 +138,7 @@ public class AggressiveTrait extends Trait implements Attacker {
 
            if (arena == null) this.arena = Manager.getArena(npc.getEntity().getWorld());
            if (!hasTarget()) {
-               arena.sendMessage(ChatColor.GREEN + "no target");
+               arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.GREEN + " no target");
               HashMap<Double, Player> distance = new HashMap<>();
                for (UUID uuid: arena.getPlayers()) {
                    Player player = Bukkit.getPlayer(uuid);
@@ -161,7 +161,7 @@ public class AggressiveTrait extends Trait implements Attacker {
                    return;
                 }
                 boolean tryAttack = getTargetingMethod().handle((LivingEntity) npc.getEntity(), victim);
-               arena.sendMessage(ChatColor.RED + "try to attack "  + tryAttack);
+               arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.RED + " try to attack "  + tryAttack);
                 if(!tryAttack) setTarget(null);
             }
 

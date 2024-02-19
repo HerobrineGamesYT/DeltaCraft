@@ -98,6 +98,7 @@ public abstract class ItemAbility implements Listener {
 
         if (this.hasCooldown() && getCooldown().containsKey(player.getUniqueId())) {
 
+
             if(System.currentTimeMillis() - getCooldown().get(player.getUniqueId()) < this.getAbility().getCooldown()) {
                 player.sendMessage(ChatColor.RED + "This ability is currently on cooldown!");
                 player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1f, 2f);

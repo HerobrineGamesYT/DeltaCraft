@@ -43,6 +43,8 @@ private HashMap<UUID, Long> lastHitTime;
 
 private ArrayList<UUID> readiedPlayers;
 
+private HashMap<UUID, Long> lastClusterUse;
+
 
 private int seconds;
 
@@ -73,6 +75,7 @@ private boolean areObjectsInitialized;
         this.areAttacksInitialized = false;
         this.areObjectsInitialized = false;
         this.readiedPlayers = new ArrayList<>();
+        this.lastClusterUse = new HashMap<>();
     }
 
     public void startMission(GameType type) {
@@ -90,6 +93,8 @@ private boolean areObjectsInitialized;
            objectManager = new ObjectManager(arena.getID());
            areObjectsInitialized = true;
        }
+
+        lastClusterUse.clear();
         mission = Missions.valueOf(type.name());
         DateFormat df = new SimpleDateFormat("MM/dd/yy");
         Date dateobj = new Date();
@@ -221,6 +226,8 @@ private boolean areObjectsInitialized;
     public AbilityManager getAbilityManager() {return abilityManager;}
 
     public ObjectManager getObjectManager() {return objectManager;}
+
+    public HashMap<UUID, Long> getLastClusterUse() {return lastClusterUse;}
 
     public void startBoss() {
         bossActive = true;

@@ -1,6 +1,7 @@
 package net.herobrine.deltacraft.characters.attack;
 
 import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.ai.Navigator;
 import net.citizensnpcs.api.npc.NPC;
 import net.herobrine.deltacraft.DeltaCraft;
 import net.herobrine.deltacraft.game.CustomProjectiles;
@@ -27,6 +28,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public abstract class Attack implements Listener {
@@ -154,7 +156,7 @@ public abstract class Attack implements Listener {
         long attackStart = System.currentTimeMillis();
         DataWatcher datawatcher = null;
         DataWatcher entWatcher = living.getDataWatcher();
-        arena.sendMessage(ChatColor.RED +  "" + shouldChargeBow);
+        arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG]" + npc.getName() + ChatColor.GREEN + " Charge Bow:" + ChatColor.RED +  " " + shouldChargeBow);
         if (shouldChargeBow){
             CraftHumanEntity ent1 = (CraftHumanEntity) npc.getEntity();
             datawatcher = new DataWatcher(ent1.getHandle());
@@ -169,6 +171,7 @@ public abstract class Attack implements Listener {
                     if (npc.getEntity() == null) return;
                     LivingEntity ent = (LivingEntity) npc.getEntity();
                     arena.sendPacket(new PacketPlayOutEntityMetadata(ent.getEntityId(), entWatcher, true));
+                    lookAtTarget(target, npc);
                     if (type.getAttackSound() != null) arena.playSound(type.getAttackSound(), 1f, type.getAttackSoundPitch());
                     ent.launchProjectile(type.getProjectile().getProjectile());
                 }
@@ -177,5 +180,10 @@ public abstract class Attack implements Listener {
 
         }.runTaskTimer(DeltaCraft.getInstance(), 0L, 1L);
 
+    }
+
+    public void lookAtTarget(LivingEntity target, NPC npc) {
+        Function<Navigator, Location> func = (navigator) -> target.getEyeLocation();
+        npc.getNavigator().getLocalParameters().lookAtFunction(func);
     }
 }
