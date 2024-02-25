@@ -7,6 +7,14 @@ I also have created a design plan for the project which you can check out here f
 
 From here on out, I'll keep this focused on the systems that are currently developed within the project, and explaining some of the code behind it. The current source is available in this repository.
 
+Dependencies: 
+
+[Mine] HerobrinePVP-CORE (required for all minigames)
+[Mine] GameCore (required for all minigames)
+[3rd Party] - NoteBlockAPI (HerobrinePVP-Core Dependency)
+[3rd Party] - Citizens (used for custom NPCs)
+[3rd Party] - WorldEdit (planned to be used for certain world-based operations, such as placing schematics for dungeon rooms- subject to change)
+
 **Items and Abilities**
 
 DeltaCraft contains a custom items system. All Items are stored within the ItemTypes enum, and have stats. They may or may not have an ability attached to them as well. 
