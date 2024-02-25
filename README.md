@@ -130,7 +130,7 @@ The Portal Cluster will be used all accross the Dungeon to create a way to telep
 This is what a Portal Cluster currently looks like:
 ![image](https://github.com/HerobrineGamesYT/DeltaCraft/assets/74119793/79e7a6df-ea6e-46de-bca9-1a4da107c4d8)
 
-All Portal Clusters have a set destination, and a teleport cooldown of 3s. Optionally, you can enable a second Portal Cluster to spawn at its destination.
+All Portal Clusters have a set destination, and a teleport cooldown of 3s. Optionally, you can enable a second Portal Cluster to spawn at its destination set to go back where you came from.
 
 You can see the Portal Cluster in action 48 seconds into this showcase clip: https://streamable.com/epydan
 
