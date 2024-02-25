@@ -35,7 +35,7 @@ Example: https://streamable.com/cu6gbq
 
 Each custom mob in Deltacraft is a "Character". Each NPC has a custom class that extends the abstract class "Character"- which contains the basic logic for entity management. Subclass instances are also created and managed by the CustomEntityManager.
 
-The custom entiteis in DeltaCraft make use of the Citizens API- which allows me to create custom traits for their behavior. I have created 3 - the SequentialDialogueTrait, AggressiveTrait, and DimentioTrait.
+The custom entities in DeltaCraft make use of the Citizens API- which allows me to create custom traits for their behavior. I have created 3 - the SequentialDialogueTrait, AggressiveTrait, and DimentioTrait.
 
 *Sequential Dialogue Trait*
 
@@ -52,9 +52,9 @@ You can also set up an NPC's voice, by giving it a Minecraft sound effect with a
 
 The class supports a few different types of dialogue: 
 
-Click Say: When enabled, the NPC will speak it's dialogue map whenever it is clicked by a player (Used for NPCs like the Dungeon Master)
+Click Say: When enabled, the NPC will speak its dialogue map whenever it is clicked by a player (Used for NPCs like the Dungeon Master)
 
-Active Dialogue: When enabled, the NPC will speak it's dialogue map whenever it is spawned (Used for Bosses)
+Active Dialogue: When enabled, the NPC will speak its dialogue map whenever it is spawned (Used for Bosses)
 
 Timed Say: Give an NPC a dialogue map, and it will say whatever you want using that sequence.
 
@@ -87,7 +87,7 @@ An example of the above systems can be observed in this clip of the Dimentio bos
 
 **Player Stats & Equipment**
 
-All players in Deltacraft have custom stats... Which may be farmiliar to all Hypixel Skyblock players.
+All players in Deltacraft have custom stats... Which may be familiar to all Hypixel Skyblock players.
 
 Your stats are based off of a base value of 1000 HP and 50 defense, and your equipment- which is determined by what class you're playing. The equipment system also supports held items - so for example, a mage weapon could have a stat bonus of +100 Intelligence, and it would increase your intelligence automatically while being held. When you stop holding the item, the game will also remember what your mana was at before you stopped holding the item - so as long as you haven't used anymore mana, when you switch back it will continue regenerating your mana from where you left off. I observed this behavior in Hypixel Skyblock and decided to try to implement it into this project as well.
 
