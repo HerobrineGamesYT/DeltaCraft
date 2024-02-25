@@ -10,9 +10,13 @@ From here on out, I'll keep this focused on the systems that are currently devel
 Dependencies: 
 
 [Mine] HerobrinePVP-CORE (required for all minigames)
+
 [Mine] GameCore (required for all minigames)
+
 [3rd Party] - NoteBlockAPI (HerobrinePVP-Core Dependency)
+
 [3rd Party] - Citizens (used for custom NPCs)
+
 [3rd Party] - WorldEdit (planned to be used for certain world-based operations, such as placing schematics for dungeon rooms- subject to change)
 
 **Items and Abilities**
