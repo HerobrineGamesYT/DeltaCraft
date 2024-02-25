@@ -13,7 +13,7 @@ Dependencies:
 
 [Mine] GameCore (required for all minigames)
 
-[3rd Party] - NoteBlockAPI (HerobrinePVP-Core Dependency)
+[3rd Party] - NoteBlockAPI (HerobrinePVP-Core Dependency - I'm using a version that I modified to support pling in 1.8 and slightly optimize playback in certain cases.)
 
 [3rd Party] - Citizens (used for custom NPCs)
 
