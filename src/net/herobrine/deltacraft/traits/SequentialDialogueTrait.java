@@ -91,7 +91,6 @@ public class SequentialDialogueTrait extends Trait {
     }
 
     @EventHandler
-
     public void rightClick(NPCRightClickEvent e) {
         if (!e.getNPC().equals(this.getNPC())) return;
 
@@ -101,7 +100,6 @@ public class SequentialDialogueTrait extends Trait {
 
         if (hasClickSay) timedSay(e.getClicker(), dialogue);
     }
-
 
     // Called every tick - this is for NPCs with active dialogue that plays right from onSpawn. This is on by default. If you want a regular NPC that
     // has dialogue on click, disable this when attaching the trait. Then you can setup your dialogue map and enable hasClickSay.

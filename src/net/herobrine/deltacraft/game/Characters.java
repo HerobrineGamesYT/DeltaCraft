@@ -16,8 +16,8 @@ public enum Characters {
 			Dimentio.class),
 	DUMMY(ChatColor.GREEN + "Dummy", ChatColor.GREEN, 1500, false, EntityType.PLAYER,null, true, null, null, TestDummy.class),
 
-	DUNGEON_MASTER(ChatColor.GRAY + "Dungeon Master", ChatColor.GRAY, 0, false, EntityType.PLAYER, null, false, null,
-			null, DungeonMaster.class),
+	DUNGEON_MASTER(ChatColor.GRAY + "Dungeon Master", ChatColor.GRAY, 0, false, EntityType.PLAYER, null, false, "ewogICJ0aW1lc3RhbXAiIDogMTY4MzgxODAxODk3NiwKICAicHJvZmlsZUlkIiA6ICJhMjk1ODZmYmU1ZDk0Nzk2OWZjOGQ4ZGE0NzlhNDNlZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJMZXZlMjQiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTgzZmFiNTQzNDc2ZmQxNjI0NTY4NTk0ODA0YWY1Y2NiZTdkYWIxZGE2NDg0NmQ0Yzc4ODA2ZmY3OWEyOTYxNSIsCiAgICAgICJtZXRhZGF0YSIgOiB7CiAgICAgICAgIm1vZGVsIiA6ICJzbGltIgogICAgICB9CiAgICB9CiAgfQp9",
+			"cXZZv9yFCXOqY8FkxnbXsCubrsk/Qu7oY9kWYIWjzdcPlMyqpsulM/YpmeG+MQ62W85DFCeV9YKLrvg3j3pOMJNePGCADZY/JXKTYYg/U1Fp7lkhkqLZuxqo1Irpl700VqOsNf+iQUouU3UuOiSL3OB4/p3XFUbcrw6PRZfIFfwIl2r78CjgE5c93E5ooM7xn1APxS1ZTxdab1zWFuQ5eYQDh0EghC9/nm12Ye2rKU+rWRtcVgIyd8WAF48qzqA6MWmy3krBVTkNRdkBNgSajAd40cgx9SwoW2305OJaG3+PQBWyTXCmsFVVi26mLJZJjS4DYNDHQwxV29Y1O/Oie9csavcA3ztGIr4Dilv6ih7N3zrvckKT6IzgXHgyCULthFnulx8oYxCHxvMHB2Neetk+0UTRmZr8nLqLOrq+N1AcsghB+etrQv5tmOpV52LoytQXjSKCnJwZI8FEK/kOyWvu/zMiJg3SdqxMIPSZ5nLt4z1Q2kDbHDTRZe7uvkQrFSM7ZpshgGBp9BIhCMglNF88J7iisTd/1+MNIXtQ6xIJjnkaLXfvljN9exO2V1pZU5SoUYz+Ix+yw1QMeWIbJLN2HW7Xq/RbA82eiEU8fa+osxWl4P9nxdo5TPWyuLWoOKZME2XvAahmgDOsAYu6HM8Zd4NfW+W7M25ixqIlX3I=", DungeonMaster.class),
 
 	DUMMY_ATTACKER(ChatColor.RED + "Aggressive Dummy", ChatColor.RED, 1500, false, EntityType.PLAYER,
 			new AttackTypes[] {AttackTypes.BASIC_MELEE, AttackTypes.BASIC_RANGED}, true, null, null, DummyAttacker.class);

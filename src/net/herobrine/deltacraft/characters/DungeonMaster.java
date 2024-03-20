@@ -37,8 +37,6 @@ public class DungeonMaster extends Character {
 
         this.arena = arena;
         this.character = character;
-        getNPC().getOrAddTrait(SkinTrait.class).setSkinName("Redstone_mc");
-
         spawnNPC(loc);
 
         getNPC().getOrAddTrait(SequentialDialogueTrait.class).setHasActiveDialogue(false);
@@ -111,6 +109,7 @@ public class DungeonMaster extends Character {
 
     @EventHandler
     public void onSpawn(NPCSpawnEvent e) {
+        if (!e.getNPC().equals(this.getNPC())) return;
         getNPC().getOrAddTrait(SequentialDialogueTrait.class).setupDialogueMap(new String[] {"Hello there traveler! Welcome to DeltaCraft.",
         "DeltaCraft is a dungeons minigame full of surprises.", "&dBosses, &bSecrets, &cEnemies, &fand more lie ahead.", "You're going to need some gear to get started." +
                         "\nClick me again to select your class!"}, new long[] {0L, 20L, 40L, 60L},

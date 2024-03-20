@@ -97,6 +97,41 @@ public class InstantTransmission extends ItemAbility implements SpecialCase {
                 return false;
             }
         }
+        boolean solidFound = false;
+        Location loc2 = player.getLocation();
+        Vector dir2 = loc2.getDirection();
+     
+        for (int i = 1; i<9; i++) {
+            loc2 = player.getLocation();
+            dir2 = loc2.getDirection();
+            dir2.multiply(i);
+            loc2.add(dir2);
+            loc2.add(0, .5, 0);
+
+            if (loc2.getBlock().getType().isSolid()) {
+                loc2 = player.getLocation();
+                dir2 = loc2.getDirection();
+                dir2.multiply(i - 1);
+                loc2.add(dir2);
+                solidFound = true;
+                doNoPass(player);
+                break;
+            }
+        }
+
+        if (!solidFound) {
+            loc2 = player.getLocation();
+            dir2 = loc2.getDirection();
+            dir2.multiply(8); // 8 blocks
+            loc2.add(dir2);
+        }
+
+        if (!loc2.getBlock().getRelative(BlockFace.UP).getType().equals(Material.AIR)) loc2.add(0, 0.5, 0);
+        if (loc2.subtract(0, 0.6, 0).getBlock().getType().isSolid()) loc2.add(0, 1.2, 0);
+        String str = "" + loc2.getX();
+        if (str.equalsIgnoreCase("NaN")) return false;
+        if (loc2.getYaw() == 0.0) return false;
+
 
         return true;
     }

@@ -227,6 +227,7 @@ public class DimentioTrait extends Trait implements Attacker {
 
             arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.GREEN + " target: " + target.getName());
             if (!hasTarget() && currentAttack != null) pickAttack();
+            npc.setFlyable(true);
             setTarget(target);
 
             arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.GREEN + " target real: " + this.target.getName());
@@ -234,6 +235,7 @@ public class DimentioTrait extends Trait implements Attacker {
 
         else {
             Player victim = target;
+            if (Manager.getArena(target) == null || !Manager.getArena(target).equals(arena)) return;
             double dist = victim.getLocation().distanceSquared(npc.getEntity().getLocation());
             if (dist > range*range) {
                 arena.sendDebugMessage(ChatColor.GOLD + "[DEBUG] " + npc.getName() + ChatColor.RED + " target cancelled");
@@ -262,8 +264,8 @@ public class DimentioTrait extends Trait implements Attacker {
                  Location n = location.setDirection(target.getLocation().subtract(location).toVector());
                  float pit = n.getPitch();
                  float yaw = n.getYaw();
-                 NMS.look(target, target.getEyeLocation(), false, false);
-                 arena.sendPacket(new PacketPlayOutEntity.PacketPlayOutEntityLook(npc.getEntity().getEntityId(), (byte) ((yaw % 360.) * 256 / 360), (byte) ((pit % 360.) * 256 / 360), false));
+                 NMS.look(npc.getEntity(), target.getEyeLocation(), false, false);
+                // arena.sendPacket(new PacketPlayOutEntity.PacketPlayOutEntityLook(npc.getEntity().getEntityId(), (byte) ((yaw % 360.) * 256 / 360), (byte) ((pit % 360.) * 256 / 360), false));
                  if(npc.getNavigator().isNavigating()) {
                      npc.getNavigator().cancelNavigation();
                      npc.getNavigator().setTarget(target.getLocation().add(0, 4, 0));
