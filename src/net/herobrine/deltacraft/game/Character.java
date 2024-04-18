@@ -13,6 +13,7 @@ import net.herobrine.deltacraft.DeltaCraft;
 import net.herobrine.deltacraft.characters.CustomEntityManager;
 import net.herobrine.deltacraft.characters.attack.Attack;
 import net.herobrine.deltacraft.characters.attack.AttackTypes;
+import net.herobrine.deltacraft.traits.AggressiveTrait;
 import net.herobrine.gamecore.Arena;
 import net.herobrine.gamecore.Manager;
 import org.bukkit.Bukkit;
@@ -99,6 +100,15 @@ public abstract class Character implements Listener {
         npc.getOrAddTrait(HologramTrait.class).setLine(index, "" + ChatColor.GREEN + Math.round(health) + ChatColor.RED + "❤");
     }
 
+    public Attack getAttack() {
+        if (!npc.hasTrait(AggressiveTrait.class)) return null;
+        return Manager.getArena(spawnLoc.getWorld()).getDeltaGame().getAttackManager().getAttackFromType(getNPC().getOrAddTrait(AggressiveTrait.class).getCurrentAttack());
+    }
+
+    public AttackTypes getAttackType() {
+        if (!npc.hasTrait(AggressiveTrait.class)) return null;
+        return getNPC().getOrAddTrait(AggressiveTrait.class).getCurrentAttack();
+    }
 
      // player = player that killed this enemy.
      public void killNPC(Player player) {

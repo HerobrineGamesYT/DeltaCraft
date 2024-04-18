@@ -9,14 +9,13 @@ import net.herobrine.core.SongPlayer;
 import net.herobrine.core.Songs;
 import net.herobrine.deltacraft.DeltaCraft;
 import net.herobrine.deltacraft.characters.CustomEntityManager;
+import net.herobrine.deltacraft.characters.attack.Attack;
+import net.herobrine.deltacraft.characters.attack.AttackTypes;
 import net.herobrine.deltacraft.items.ItemTypes;
 import net.herobrine.deltacraft.utils.NBTReader;
 import net.herobrine.gamecore.*;
 import org.bukkit.*;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -25,6 +24,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 
 import java.util.NoSuchElementException;
@@ -87,10 +87,19 @@ public class DeltaListener implements Listener {
 
                     double damageReduction = (double)defense / ((double)defense + 100);
 
+                    if (e.getEntity() instanceof Arrow) {
+                        Arrow arrow = (Arrow) e.getEntity();
+                        ProjectileSource source = arrow.getShooter();
+                        NPC npc = null;
+                        AttackTypes attack = null;
+                        if (source instanceof Entity) if(CitizensAPI.getNPCRegistry().isNPC((Entity)source)) npc = CitizensAPI.getNPCRegistry().getNPC((Entity) source);
+                        if (npc != null) attack = CustomEntityManager.getCharFromEnt(npc.getEntity()).getAttackType();
+                        if (attack != null) damage = attack.getBaseDamage();
+                        player.damage(0);
+                    }
                     int trueDamage;
                     if (defense != 0) trueDamage = (int)Math.round(damage - (damage * damageReduction));
                     else trueDamage = (int)Math.round(damage);
-
                     player.sendMessage(ChatColor.GREEN + "You just took " + ChatColor.RED + trueDamage + "❁ Damage!");
                     int newHealth = health - trueDamage;
                     if(!(newHealth <= 0)) arena.getDeltaGame().getStats(player).setHealth(newHealth);

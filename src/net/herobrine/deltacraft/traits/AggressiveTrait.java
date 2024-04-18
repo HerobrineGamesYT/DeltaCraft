@@ -24,6 +24,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.Vector;
 
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -119,12 +120,16 @@ public class AggressiveTrait extends Trait implements Attacker {
                 else if (target.getLocation().distanceSquared(npc.getEntity().getLocation()) < currentAttack.getRange()*currentAttack.getRange()) {
                     Function<Navigator, Location> func = (navigator) -> target.getEyeLocation();
                     npc.getNavigator().getLocalParameters().lookAtFunction(func);
+                    npc.getNavigator().setTarget(target, false);
                     if (System.currentTimeMillis() - lastAttack >= currentAttack.getAttackSpeed()) {
                         lastAttack = System.currentTimeMillis();
                         arena.getDeltaGame().getAttackManager().getAttackFromType(currentAttack).doAttack(target, npc);
                     }
                 }
-                else npc.getNavigator().setTarget(target.getLocation());
+                else {
+                    setWalkSpeed(2F);
+                    npc.getNavigator().setTarget(target.getLocation());
+                }
             return true;
         };
 
@@ -149,7 +154,6 @@ public class AggressiveTrait extends Trait implements Attacker {
                 Player target = distance.get(Collections.min(distance.keySet()));
 
                 if (hasTarget() && currentAttack != null) pickAttack();
-
                 setTarget(target);
                  }
 
@@ -169,6 +173,7 @@ public class AggressiveTrait extends Trait implements Attacker {
 
 
 
+        public AttackTypes getCurrentAttack(){return currentAttack;}
         public boolean hasTarget() {return target != null;}
 
         public void setTarget(Player target) {this.target = target;}

@@ -3,10 +3,12 @@ package net.herobrine.deltacraft.characters;
 import net.citizensnpcs.api.event.NPCLeftClickEvent;
 import net.citizensnpcs.api.event.NPCRightClickEvent;
 import net.citizensnpcs.api.event.NPCSpawnEvent;
+import net.herobrine.deltacraft.characters.attack.Attack;
 import net.herobrine.deltacraft.game.Character;
 import net.herobrine.deltacraft.game.Characters;
 import net.herobrine.deltacraft.traits.AggressiveTrait;
 import net.herobrine.gamecore.Arena;
+import net.herobrine.gamecore.Manager;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -27,7 +29,6 @@ public class DummyAttacker extends Character {
     public void onLeftClick(NPCLeftClickEvent e) {
 
     }
-
 
 
     @EventHandler

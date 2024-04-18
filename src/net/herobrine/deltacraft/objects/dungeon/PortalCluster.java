@@ -52,7 +52,7 @@ public class PortalCluster extends DeltaObject {
                             if (arena.getDeltaGame().getLastClusterUse().get(player.getUniqueId()) != null) lastTeleport = arena.getDeltaGame().getLastClusterUse().get(player.getUniqueId());
                             if (System.currentTimeMillis() - lastTeleport < 3000) return;
                             arena.getDeltaGame().getLastClusterUse().put(player.getUniqueId(), System.currentTimeMillis());
-                            player.teleport(destination);
+                            player.teleport(destination.clone().add(0, 1, 0));
                             player.sendMessage(ChatColor.LIGHT_PURPLE + "You've been teleported by the Portal Cluster!");
                             player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1f, 1f);
                         }

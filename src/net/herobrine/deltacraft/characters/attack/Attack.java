@@ -173,7 +173,8 @@ public abstract class Attack implements Listener {
                     arena.sendPacket(new PacketPlayOutEntityMetadata(ent.getEntityId(), entWatcher, true));
                     lookAtTarget(target, npc);
                     if (type.getAttackSound() != null) arena.playSound(type.getAttackSound(), 1f, type.getAttackSoundPitch());
-                    ent.launchProjectile(type.getProjectile().getProjectile());
+                   Arrow arrow = (Arrow) ent.launchProjectile(type.getProjectile().getProjectile());
+                   arrow.setVelocity(arrow.getVelocity().add(new Vector(0, 0.2, 0)));
                 }
             }
 

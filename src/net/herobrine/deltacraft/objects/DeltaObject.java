@@ -13,6 +13,8 @@ public abstract class DeltaObject implements Listener {
     private Objects object;
     public int id;
     private Arena arena;
+
+    private Location location;
     public DeltaObject(ObjectTypes type, Objects object, int id) {
         this.type = type;
         this.object = object;
@@ -26,6 +28,9 @@ public abstract class DeltaObject implements Listener {
     public abstract void initObject();
 
 
+    // Used to get locations for block-based objects.
+    public Location getLocation() {return location;}
+    public void setLocation(Location loc) {this.location = loc;}
     // types are: CLUSTER, CIRCLE
     public void createParticles(Location loc) {
         PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(object.getParticle(), true,
