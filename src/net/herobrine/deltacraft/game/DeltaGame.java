@@ -4,10 +4,12 @@ import net.herobrine.core.HerobrinePVPCore;
 import net.herobrine.core.SongPlayer;
 import net.herobrine.deltacraft.ConfigManager;
 import net.herobrine.deltacraft.DeltaCraft;
+import net.herobrine.deltacraft.characters.CustomEntityManager;
 import net.herobrine.deltacraft.characters.Dimentio;
 import net.herobrine.deltacraft.characters.attack.AttackManager;
 import net.herobrine.deltacraft.items.AbilityManager;
 import net.herobrine.deltacraft.items.ItemTypes;
+import net.herobrine.deltacraft.objects.DeltaObject;
 import net.herobrine.deltacraft.objects.ObjectManager;
 import net.herobrine.deltacraft.utils.NBTReader;
 import net.herobrine.gamecore.*;
@@ -266,6 +268,14 @@ private boolean areObjectsInitialized;
            arena.getCountdown().begin();
            arena.sendMessage(ChatColor.GREEN + "All players have readied up! Countdown is starting...");
        }
+    }
+
+    // GameCore will run this when resetting a DeltaCraft arena. Use this to do things like destroying active objects, resetting the map, despawning mobs, etc...
+    public void resetMission() {
+        for (DeltaObject object : getObjectManager().getActiveObjects().values()) {object.destroyObject();}
+        for (Character character : CustomEntityManager.getEntityMap().values()) {
+           if(Manager.getArena(character.getNPC().getEntity().getWorld()).equals(arena)) character.removeNPC();
+        }
     }
 
     public boolean isBossActive() {

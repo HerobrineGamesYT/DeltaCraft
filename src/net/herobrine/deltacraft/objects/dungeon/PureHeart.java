@@ -17,6 +17,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.EulerAngle;
 import org.bukkit.util.Vector;
 
+import java.util.UUID;
+
 public class PureHeart extends DeltaObject {
 
 
@@ -31,8 +33,8 @@ public class PureHeart extends DeltaObject {
 
     boolean isStandSpawned = false;
 
-    public PureHeart(ObjectTypes type, Objects object, int id) {
-        super(type, object, id);
+    public PureHeart(ObjectTypes type, Objects object, int id, UUID uuid) {
+        super(type, object, id, uuid);
         this.heartItem = ItemTypes.valueOf(object.name());
         initObject();
     }
@@ -100,6 +102,7 @@ public class PureHeart extends DeltaObject {
     collisionRunnable.cancel();
     effectRunnable.cancel();
     heart.remove();
+    arena.getDeltaGame().getObjectManager().unregisterObject(getUUID());
     }
 
 

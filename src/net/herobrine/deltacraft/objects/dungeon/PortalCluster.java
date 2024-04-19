@@ -13,6 +13,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.UUID;
+
 public class PortalCluster extends DeltaObject {
 
     Location spawnPoint;
@@ -25,8 +27,8 @@ public class PortalCluster extends DeltaObject {
 
     BukkitRunnable collisionRunnable;
     BukkitRunnable effectRunnable;
-    public PortalCluster(ObjectTypes type, Objects object, int id) {
-        super(type, object, id);
+    public PortalCluster(ObjectTypes type, Objects object, int id, UUID uuid) {
+        super(type, object, id, uuid);
         this.arena = Manager.getArena(id);
         initObject();
     }
@@ -38,7 +40,7 @@ public class PortalCluster extends DeltaObject {
                 if (spawnPoint == null || destination == null) return;
                 if (spawnClusterAtDestination && !isDestinationClusterSpawned) {
                     isDestinationClusterSpawned = true;
-                    PortalCluster returnCluster = new PortalCluster(ObjectTypes.PARTICLE, Objects.PORTAL_CLUSTER, id);
+                    PortalCluster returnCluster = (PortalCluster) arena.getDeltaGame().getObjectManager().createObject(Objects.PORTAL_CLUSTER);
                     returnCluster.setSpawnPoint(destination);
                     returnCluster.setDestination(spawnPoint);
                     destinationCluster = returnCluster;
@@ -87,6 +89,7 @@ public class PortalCluster extends DeltaObject {
     public void destroyObject() {
         collisionRunnable.cancel();
         effectRunnable.cancel();
+        arena.getDeltaGame().getObjectManager().unregisterObject(getUUID());
         if (getDestinationCluster() != null) getDestinationCluster().destroyObject();
     }
 

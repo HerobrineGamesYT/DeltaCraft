@@ -79,6 +79,7 @@ public class ObjectTestCommand implements CommandExecutor {
                 }
                 catch(Exception e) {
                     player.sendMessage(ChatColor.RED + "Invalid Pure Heart Color!");
+                    player.sendMessage(ChatColor.RED + "Or maybe there was another problem? " + e.getCause());
                     return false;
                 }
             }

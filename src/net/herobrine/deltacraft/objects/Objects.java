@@ -6,32 +6,37 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 public enum Objects {
-    PORTAL_CLUSTER(EnumParticle.PORTAL, ObjectTypes.PARTICLE),
-    HEART_PILLAR(null, ObjectTypes.INTERACTABLE),
-    PUZZLE_TERMINAL(null, ObjectTypes.PUZZLE),
-    PURE_HEART_GREEN(null, ObjectTypes.INTERACTABLE),
-    PURE_HEART_ORANGE(null, ObjectTypes.INTERACTABLE),
-    PURE_HEART_RED( null, ObjectTypes.INTERACTABLE),
-    PURE_HEART_PURPLE(null, ObjectTypes.INTERACTABLE),
-    PURE_HEART_YELLOW(null, ObjectTypes.INTERACTABLE),
-    PURE_HEART_BLUE(null, ObjectTypes.INTERACTABLE),
-    PURE_HEART_WHITE(null, ObjectTypes.INTERACTABLE),
-    PURE_HEART_CYAN(null, ObjectTypes.INTERACTABLE);
+    PORTAL_CLUSTER(EnumParticle.PORTAL, ObjectTypes.PARTICLE, null),
+    HEART_PILLAR(null, ObjectTypes.INTERACTABLE, Material.QUARTZ_BLOCK),
+    PUZZLE_TERMINAL(null, ObjectTypes.PUZZLE, Material.COMMAND),
+    PURE_HEART_GREEN(null, ObjectTypes.INTERACTABLE, null),
+    PURE_HEART_ORANGE(null, ObjectTypes.INTERACTABLE, null),
+    PURE_HEART_RED( null, ObjectTypes.INTERACTABLE, null),
+    PURE_HEART_PURPLE(null, ObjectTypes.INTERACTABLE, null),
+    PURE_HEART_YELLOW(null, ObjectTypes.INTERACTABLE, null),
+    PURE_HEART_BLUE(null, ObjectTypes.INTERACTABLE, null),
+    PURE_HEART_WHITE(null, ObjectTypes.INTERACTABLE, null),
+    PURE_HEART_CYAN(null, ObjectTypes.INTERACTABLE, null);
 
 
     private EnumParticle particle;
     private ObjectTypes type;
 
+    private Material blockType;
 
-    private Objects (EnumParticle particle, ObjectTypes type) {
+
+    private Objects (EnumParticle particle, ObjectTypes type, Material blockType) {
         this.particle = particle;
         this.type = type;
+        this.blockType = blockType;
 
     }
 
 
     public EnumParticle getParticle() {return particle;}
     public ObjectTypes getType() {return type;}
+
+    public Material getBlockType() {return blockType;}
 
 
 

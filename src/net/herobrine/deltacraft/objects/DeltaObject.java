@@ -8,17 +8,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.Listener;
 
+import java.util.UUID;
+
 public abstract class DeltaObject implements Listener {
-    private ObjectTypes type;
-    private Objects object;
-    public int id;
-    private Arena arena;
+    protected ObjectTypes type;
+    protected Objects object;
+    protected int id;
+    protected Arena arena;
+    protected UUID uuid;
 
     private Location location;
-    public DeltaObject(ObjectTypes type, Objects object, int id) {
+    public DeltaObject(ObjectTypes type, Objects object, int id, UUID uuid) {
         this.type = type;
         this.object = object;
         this.id = id;
+        this.uuid = uuid;
 
         arena = Manager.getArena(id);
 
@@ -29,6 +33,7 @@ public abstract class DeltaObject implements Listener {
 
 
     // Used to get locations for block-based objects.
+    public UUID getUUID() {return uuid;}
     public Location getLocation() {return location;}
     public void setLocation(Location loc) {this.location = loc;}
     // types are: CLUSTER, CIRCLE
