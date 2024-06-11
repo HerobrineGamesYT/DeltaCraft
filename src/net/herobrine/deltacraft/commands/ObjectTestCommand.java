@@ -2,9 +2,13 @@ package net.herobrine.deltacraft.commands;
 
 import net.herobrine.core.HerobrinePVPCore;
 import net.herobrine.core.Ranks;
+import net.herobrine.deltacraft.objects.ObjectTypes;
 import net.herobrine.deltacraft.objects.Objects;
 import net.herobrine.deltacraft.objects.dungeon.PortalCluster;
 import net.herobrine.deltacraft.objects.dungeon.PureHeart;
+import net.herobrine.deltacraft.objects.puzzles.DimentioBossTerminal;
+import net.herobrine.deltacraft.objects.puzzles.PuzzleGameState;
+import net.herobrine.deltacraft.objects.puzzles.PuzzleTypes;
 import net.herobrine.gamecore.GameState;
 import net.herobrine.gamecore.Games;
 import net.herobrine.gamecore.Manager;
@@ -20,7 +24,10 @@ import java.util.ArrayList;
 public class ObjectTestCommand implements CommandExecutor {
 
     boolean hasPortalSpawned = false;
+    boolean hasTerminalSpawned = false;
     ArrayList<PortalCluster> clusterTest = new ArrayList<>();
+
+    DimentioBossTerminal terminal;
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
@@ -46,7 +53,7 @@ public class ObjectTestCommand implements CommandExecutor {
                 return false;
             }
 
-            if (args.length != 1) {
+            if (args.length != 1 && !args[0].equalsIgnoreCase("PUZZLE_TERMINAL")) {
                 player.sendMessage(ChatColor.RED + "Invalid usage! Usage: /testobject <OBJECT>");
                 return false;
             }
@@ -82,6 +89,59 @@ public class ObjectTestCommand implements CommandExecutor {
                     player.sendMessage(ChatColor.RED + "Or maybe there was another problem? " + e.getCause());
                     return false;
                 }
+            }
+
+            else if (args[0].equalsIgnoreCase("PUZZLE_TERMINAL") && !hasTerminalSpawned && args.length > 1) {
+                try {
+                    PuzzleTypes desiredPuzzle = PuzzleTypes.valueOf(args[1]);
+                    terminal = (DimentioBossTerminal) Manager.getArena(player).getDeltaGame().getObjectManager().createSpecialPuzzleObject(Objects.PUZZLE_TERMINAL, desiredPuzzle);
+                terminal.setLocation(new Location(Manager.getArena(player).getSpawn().getWorld(), -195.5, 4, 1.5));
+                hasTerminalSpawned = true;
+                player.sendMessage(ChatColor.GREEN + "Spawned a test Puzzle Terminal!");
+                }
+                catch(Exception e) {
+                    player.sendMessage(ChatColor.RED + "Invalid puzzle type provided! Usage: /testobject PUZZLE_TERMINAL PUZZLE_TYPE");
+                }
+            }
+
+            else if (args[0].equalsIgnoreCase("PUZZLE_TERMINAL") && !hasTerminalSpawned) {
+
+                terminal = (DimentioBossTerminal) Manager.getArena(player).getDeltaGame().getObjectManager().createObject(Objects.PUZZLE_TERMINAL);
+                terminal.setLocation(new Location(Manager.getArena(player).getSpawn().getWorld(), -195.5, 4, 1.5));
+                hasTerminalSpawned = true;
+                player.sendMessage(ChatColor.GREEN + "Spawned a test Puzzle Terminal!");
+            }
+
+            else if (args[0].equalsIgnoreCase("PUZZLE_TERMINAL") && hasTerminalSpawned && args.length > 1) {
+                if(!terminal.getPuzzle().getState().equals(PuzzleGameState.DESTROYED) && terminal.getLocation() != null) {
+                    terminal.destroyObject();
+                    hasTerminalSpawned = false;
+                    player.sendMessage(ChatColor.RED + "Removed the test Puzzle Terminal!");
+                    return false;
+                }
+                try {
+                    PuzzleTypes desiredPuzzle = PuzzleTypes.valueOf(args[1]);
+                    terminal = (DimentioBossTerminal) Manager.getArena(player).getDeltaGame().getObjectManager().createSpecialPuzzleObject(Objects.PUZZLE_TERMINAL, desiredPuzzle);
+                    terminal.setLocation(new Location(Manager.getArena(player).getSpawn().getWorld(), -195.5, 4, 1.5));
+                    hasTerminalSpawned = true;
+                    player.sendMessage(ChatColor.GREEN + "Spawned a test Puzzle Terminal!");
+                }
+                catch(Exception e) {
+                    player.sendMessage(ChatColor.RED + "Invalid puzzle type provided! Usage: /testobject PUZZLE_TERMINAL PUZZLE_TYPE");
+                }
+            }
+
+            else if (args[0].equalsIgnoreCase("PUZZLE_TERMINAL") && hasTerminalSpawned) {
+                if(!terminal.getPuzzle().getState().equals(PuzzleGameState.DESTROYED) && terminal.getLocation() != null) {
+                    terminal.destroyObject();
+                    hasTerminalSpawned = false;
+                    player.sendMessage(ChatColor.RED + "Removed the test Puzzle Terminal!");
+                    return false;
+                }
+                terminal = (DimentioBossTerminal) Manager.getArena(player).getDeltaGame().getObjectManager().createObject(Objects.PUZZLE_TERMINAL);
+                terminal.setLocation(new Location(Manager.getArena(player).getSpawn().getWorld(), -195.5, 4, 1.5));
+                player.sendMessage(ChatColor.GREEN + "Spawned another test Puzzle Terminal!");
+                player.sendMessage(ChatColor.GREEN + "Good job on completing the last one!");
             }
 
         }

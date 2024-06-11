@@ -2,6 +2,7 @@ package net.herobrine.deltacraft.objects.dungeon;
 
 import net.herobrine.deltacraft.DeltaCraft;
 import net.herobrine.deltacraft.objects.DeltaObject;
+import net.herobrine.deltacraft.objects.ObjectState;
 import net.herobrine.deltacraft.objects.ObjectTypes;
 import net.herobrine.deltacraft.objects.Objects;
 import net.herobrine.gamecore.Arena;
@@ -34,6 +35,7 @@ public class PortalCluster extends DeltaObject {
     }
     @Override
     public void initObject() {
+        state = ObjectState.ACTIVE;
         collisionRunnable = new BukkitRunnable() {
             @Override
             public void run() {

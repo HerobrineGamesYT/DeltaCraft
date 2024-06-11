@@ -7,7 +7,6 @@ import net.citizensnpcs.api.ai.tree.BehaviorStatus;
 public class DimentioRunningBehavior extends BehaviorGoalAdapter {
     @Override
     public void reset() {
-
     }
 
     @Override

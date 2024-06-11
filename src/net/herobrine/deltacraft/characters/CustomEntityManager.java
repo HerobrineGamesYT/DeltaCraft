@@ -7,14 +7,15 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CustomEntityManager {
-   public static HashMap<Entity, Character> entityMap = new HashMap<Entity, Character>();
+   public static ConcurrentHashMap<Entity, Character> entityMap = new ConcurrentHashMap<Entity, Character>();
 
 
 
 
-    public static HashMap<Entity, Character> getEntityMap() {return entityMap;}
+    public static ConcurrentHashMap<Entity, Character> getEntityMap() {return entityMap;}
 
     public static Character getCharFromEnt(Entity ent) {return entityMap.get(ent);}
 

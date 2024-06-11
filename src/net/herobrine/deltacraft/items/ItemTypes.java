@@ -195,23 +195,16 @@ public enum ItemTypes {
 
 
         item.setLore(doLore(type));
-
-
         if (type.isLeatherArmor()) item.setColor(type.getLeatherArmorColor());
         if(type.glow()) item.addEnchant(Enchantment.DURABILITY, 1);
-
         ItemStack itemStack = item.build();
-
         NBTReader reader = new NBTReader(itemStack);
-
         reader.writeStringNBT("id", type::name);
         reader.writeIntNBT("damage", type::getDamage);
         reader.writeIntNBT("strength", type::getStrength);
         reader.writeIntNBT("defense", type::getDefense);
         reader.writeIntNBT("health", type::getHealth);
         reader.writeIntNBT("mana", type::getMana);
-
-
         return reader.toBukkit();
     }
 

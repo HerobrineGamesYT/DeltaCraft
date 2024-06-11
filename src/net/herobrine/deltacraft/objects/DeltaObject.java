@@ -16,13 +16,14 @@ public abstract class DeltaObject implements Listener {
     protected int id;
     protected Arena arena;
     protected UUID uuid;
-
+    protected ObjectState state;
     private Location location;
     public DeltaObject(ObjectTypes type, Objects object, int id, UUID uuid) {
         this.type = type;
         this.object = object;
         this.id = id;
         this.uuid = uuid;
+        this.state = ObjectState.INACTIVE;
 
         arena = Manager.getArena(id);
 
@@ -45,6 +46,8 @@ public abstract class DeltaObject implements Listener {
     }
 
 
+    public ObjectState getState() {return state;}
+    public void setState(ObjectState state) {this.state = state;}
 
     public abstract void destroyObject();
 }

@@ -21,9 +21,6 @@ public class NBTReader {
         this.nbtTagCompound = netStack.getTag() != null ? netStack.getTag() : new NBTTagCompound();
     }
 
-    public NBTReader() {
-
-    }
 
     public void assign(Supplier<ItemStack> itemStackSupplier) {
         if (itemStackSupplier.get() == null) return;

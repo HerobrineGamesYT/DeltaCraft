@@ -36,7 +36,6 @@ public abstract class ItemAbility implements Listener {
 
     protected Arena arena;
     public ItemAbility(ItemAbilities ability, ItemTypes item, int id) {
-
         this.ability = ability;
         this.item = item;
         this.id = id;

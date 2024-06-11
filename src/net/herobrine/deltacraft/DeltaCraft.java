@@ -6,6 +6,7 @@ import net.citizensnpcs.api.CitizensAPI;
 import net.herobrine.core.HerobrinePVPCore;
 import net.herobrine.deltacraft.commands.*;
 import net.herobrine.deltacraft.game.DeltaListener;
+import net.herobrine.deltacraft.objects.puzzles.PuzzleMenus;
 import net.herobrine.deltacraft.traits.AggressiveTrait;
 import net.herobrine.deltacraft.traits.DimentioTrait;
 import net.herobrine.deltacraft.traits.SequentialDialogueTrait;
@@ -18,6 +19,8 @@ public class DeltaCraft extends JavaPlugin {
 
 	public static boolean isCitizensEnabled;
 	public static DeltaCraft instance;
+
+	private PuzzleMenus puzzleMenuManager;
 
 	@Override
 	public void onEnable() {
@@ -38,6 +41,8 @@ public class DeltaCraft extends JavaPlugin {
 		}
 
 		new ConfigManager(this);
+
+		puzzleMenuManager = new PuzzleMenus();
 		Bukkit.getPluginManager().registerEvents(new DeltaListener(), this);
 		CitizensAPI.getTraitFactory().registerTrait(net.citizensnpcs.api.trait.TraitInfo.create(AggressiveTrait.class));
 		CitizensAPI.getTraitFactory().registerTrait(net.citizensnpcs.api.trait.TraitInfo.create(SequentialDialogueTrait.class));
@@ -70,6 +75,7 @@ public class DeltaCraft extends JavaPlugin {
 		}
 	}
 
+	public PuzzleMenus getPuzzleMenuManager() {return puzzleMenuManager;}
 	public HerobrinePVPCore getCustomAPI() {
 		Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("HBPVP-Core");
 		if (plugin instanceof HerobrinePVPCore) {

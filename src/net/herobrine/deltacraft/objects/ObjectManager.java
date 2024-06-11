@@ -2,9 +2,14 @@ package net.herobrine.deltacraft.objects;
 
 import net.herobrine.deltacraft.objects.dungeon.PortalCluster;
 import net.herobrine.deltacraft.objects.dungeon.PureHeart;
+import net.herobrine.deltacraft.objects.inventory.Car;
+import net.herobrine.deltacraft.objects.inventory.Expo;
+import net.herobrine.deltacraft.objects.inventory.Order;
+import net.herobrine.deltacraft.objects.puzzles.DimentioBossTerminal;
+import net.herobrine.deltacraft.objects.puzzles.PuzzleTypes;
+import org.bukkit.inventory.Inventory;
 
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
+import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -36,18 +41,57 @@ public class ObjectManager {
                 PureHeart heart = new PureHeart(type.getType(), type, id, uuid);
                 registerObject(heart, uuid);
                 return heart;
+            case PUZZLE_TERMINAL:
+                DimentioBossTerminal terminal = new DimentioBossTerminal(type.getType(), type, id, uuid);
+                registerObject(terminal, uuid);
+                return terminal;
             default:
                 return null;
         }
 
     }
 
+    public DeltaObject createSpecialPuzzleObject(Objects type, PuzzleTypes puzzle) {
+        UUID uuid = UUID.randomUUID();
+        switch (type) {
+            case PUZZLE_TERMINAL:
+                DimentioBossTerminal terminal = new DimentioBossTerminal(type.getType(), type, id, uuid, puzzle);
+                registerObject(terminal, uuid);
+                return terminal;
+            default: return null;
+        }
+    }
 
-    public void registerObject(DeltaObject object, UUID uuid) throws ConcurrentModificationException {
-        if (activeObjects.containsKey(uuid)) throw new ConcurrentModificationException("An object already exists with this UUID. " + activeObjects.get(uuid));
+    public DeltaObject createInventoryObject(Objects type, Inventory inventory) {
+        UUID uuid = UUID.randomUUID();
+        switch(type) {
+            case CAR:
+                Car car = new Car(type.getType(), type, id, uuid, inventory);
+                registerObject(car, uuid);
+                return car;
+            case ORDER:
+                Order order = new Order(type.getType(), type, id, uuid, inventory);
+                registerObject(order, uuid);
+                return order;
+            case EXPO:
+                Expo expo = new Expo(type.getType(), type, id, uuid, inventory);
+                registerObject(expo, uuid);
+                return expo;
+            default:
+                return null;
+        }
+    }
+
+
+
+    public void registerObject(DeltaObject object, UUID uuid) throws KeyAlreadyExistsException {
+        if (activeObjects.containsKey(uuid)) throw new KeyAlreadyExistsException("An object already exists with this UUID. " + activeObjects.get(uuid));
         else activeObjects.put(uuid, object);
     }
-    public void unregisterObject(UUID uuid) {activeObjects.remove(uuid);}
+    public void unregisterObject(UUID uuid) {
+        getActiveObjects().get(uuid).setState(ObjectState.DESTROYED);
+        activeObjects.remove(uuid);
+    }
 
     public HashMap<UUID, DeltaObject> getActiveObjects() {return activeObjects;}
 }

@@ -16,7 +16,10 @@ public enum Objects {
     PURE_HEART_YELLOW(null, ObjectTypes.INTERACTABLE, null),
     PURE_HEART_BLUE(null, ObjectTypes.INTERACTABLE, null),
     PURE_HEART_WHITE(null, ObjectTypes.INTERACTABLE, null),
-    PURE_HEART_CYAN(null, ObjectTypes.INTERACTABLE, null);
+    PURE_HEART_CYAN(null, ObjectTypes.INTERACTABLE, null),
+    CAR(null, ObjectTypes.INVENTORY, Material.WOOL),
+    ORDER(null, ObjectTypes.INVENTORY, Material.REDSTONE),
+    EXPO(null, ObjectTypes.INVENTORY, Material.INK_SACK);
 
 
     private EnumParticle particle;
