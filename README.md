@@ -144,9 +144,6 @@ This is what a Portal Cluster currently looks like:
 
 All Portal Clusters have a set destination, and a teleport cooldown of 3s. Optionally, you can enable a second Portal Cluster to spawn at its destination set to go back where you came from.
 
-You can see the Portal Cluster in action 48 seconds into this showcase clip: https://streamable.com/epydan
-
-
 *Pure Heart*
 
 The Pure Heart will be used exclusivley within the Dimentio Boss fight. There are 8 different colored variations of the Pure Heart, and players will be able to obtain them as they progress through the boss fight. Once all 8 are obtained and placed into *Pure Heart Pillars*, Dimentio will go into a Fight State and become vulnerable.
