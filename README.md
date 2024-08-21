@@ -40,7 +40,7 @@ The doAbility method does NOT change function- the ItemAbility superclass also c
 
 A prime example of this is in the Teleport Wand ability. The special case here ensures that you do not teleport if blocks are too close to you. 
 The Instant Transmission ability also sends a warning message to the player if their teleportation was cut short due to obstructing blocks.
-Example: https://streamable.com/cu6gbq
+Example: https://streamable.com/hdb5jw
 
 
 **NPCs and Dialogue**
