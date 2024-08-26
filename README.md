@@ -94,7 +94,7 @@ These types of NPCs have a custom targeting system, and also utilize the custom 
 
 Logic for NPC AI is stored inside of these traits- and debug messages are used to be able to see what the AI is doing on a tick-by-tick basis. A mod that compacts the Minecraft chat is recomended to make these easier to read.
 
-An example of the above systems can be observed in this clip of the Dimentio boss: https://streamable.com/3uawtk
+An example of the above systems can be observed in this clip of the Dimentio boss: https://streamable.com/kfl5uu
 
 
 **Player Stats & Equipment**
